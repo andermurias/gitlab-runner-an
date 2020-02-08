@@ -38,4 +38,5 @@ RUN apt-get install yarn -y
 RUN apt-get install python -y && \
   apt-get install ansible -y
 
+# Set workdir to gitlab home user
 WORKDIR /home/gitlab-runner
