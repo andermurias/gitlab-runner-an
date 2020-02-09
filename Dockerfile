@@ -5,7 +5,11 @@ RUN apt-get update && \
   apt-get install vim -y && \
   apt-get install wget -y && \
   apt-get install lftp -y && \
+  apt-get install gzip -y && \
   apt-get install sshpass -y
+
+# Switch to gitlab runner default user
+USER gitlab-runner
 
 # NVM
 # NVM environment variables
