@@ -8,9 +8,6 @@ RUN apt-get update && \
   apt-get install gzip -y && \
   apt-get install sshpass -y
 
-# Switch to gitlab runner default user
-USER gitlab-runner
-
 # NVM
 # NVM environment variables
 ENV NVM_DIR /usr/local/nvm
@@ -44,3 +41,6 @@ RUN apt-get install python -y && \
 
 # Set workdir to gitlab home user
 WORKDIR /home/gitlab-runner
+
+ENTRYPOINT ["/usr/bin/dumb-init", "/entrypoint"]
+CMD ["run", "--user=root", "--working-directory=/home/gitlab-runner"]
