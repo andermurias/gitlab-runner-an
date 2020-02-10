@@ -43,4 +43,4 @@ RUN apt-get install python -y && \
 WORKDIR /home/gitlab-runner
 
 ENTRYPOINT ["/usr/bin/dumb-init", "/entrypoint"]
-CMD ["run", "--user=root", "--working-directory=/home/gitlab-runner"]
+CMD ["run", "--working-directory=/home/gitlab-runner"]
