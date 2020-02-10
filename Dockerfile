@@ -12,10 +12,11 @@ RUN apt-get update && \
 # NVM environment variables
 ENV NVM_DIR /usr/local/nvm
 ENV NODE_VERSION 12.15.0
+ENV NVM_VERSION v0.31.2
 
 # NVM install
 # https://github.com/creationix/nvm#install-script
-RUN curl --silent -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.2/install.sh | bash
+RUN curl --silent -o- https://raw.githubusercontent.com/creationix/nvm/$NVM_VERSION/install.sh | bash
 
 # NODE versions install
 RUN . $NVM_DIR/nvm.sh \
@@ -42,7 +43,13 @@ RUN apt-get install python -y && \
 # Set workdir to gitlab home user
 WORKDIR /home/gitlab-runner
 
-RUN echo "eval `ssh-agent`" >> /entrypoint
+RUN mkdir /root/.ssh
+RUN > /root/.ssh/id_rsa
 
-ENTRYPOINT ["/usr/bin/dumb-init", "/entrypoint"]
+RUN echo "eval \`ssh-agent\`" >> /root/.bashrc
+
+COPY ./docker-entrypoint.sh /
+RUN chmod 777 /docker-entrypoint.sh
+
+ENTRYPOINT ["/usr/bin/dumb-init", "/docker-entrypoint.sh"]
 CMD ["run", "--working-directory=/home/gitlab-runner"]
