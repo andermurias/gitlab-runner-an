@@ -42,7 +42,7 @@ RUN apt-get install python -y && \
 # Set workdir to gitlab home user
 WORKDIR /home/gitlab-runner
 
-RUN "eval `ssh-agent`" >> /entrypoint
+RUN echo "eval `ssh-agent`" >> /entrypoint
 
 ENTRYPOINT ["/usr/bin/dumb-init", "/entrypoint"]
 CMD ["run", "--working-directory=/home/gitlab-runner"]
