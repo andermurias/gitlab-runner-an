@@ -44,9 +44,6 @@ RUN apt-get install python -y && \
 WORKDIR /home/gitlab-runner
 
 RUN mkdir /root/.ssh
-RUN > /root/.ssh/id_rsa
-
-RUN echo "eval \`ssh-agent\`" >> /root/.bashrc
 
 COPY ./docker-entrypoint.sh /
 RUN chmod 777 /docker-entrypoint.sh
